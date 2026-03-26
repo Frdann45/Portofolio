@@ -55,7 +55,7 @@ export default function Portfolio() {
               <span className="text-zinc-500 font-medium">Rahmansyah.</span>
             </h1>
             <p className="max-w-2xl text-lg md:text-xl opacity-80 leading-relaxed mb-8">
-              Mahasiswa Teknik Informatika semester empat yang adaptif dan fleksibel. Aktif berorganisasi dan berpengalaman dalam Social Media Specialist, serta memiliki keahlian dalam desain grafis, fotografi, dan pengembangan web.
+              Mahasiswa Teknik Informatika yang adaptif dan fleksibel. Aktif berorganisasi dan berpengalaman dalam Social Media Specialist, serta memiliki keahlian dalam desain grafis, fotografi, dan pengembangan web.
             </p>
             <div className="flex flex-wrap gap-4">
               <a 

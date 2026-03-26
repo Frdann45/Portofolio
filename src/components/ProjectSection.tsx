@@ -12,23 +12,23 @@ export default function ProjectSection() {
 
   const projects = [
     {
-      title: "Tim Media Partner Suara yang Terbungkam Vol.5",
+      title: "Media Partner Suara yang Terbungkam Vol.5",
       client: "UKM Musik STMIK DCI",
-      type: "Event Documentation • Photography",
+      type: "Event Documentation • Music",
       tagIcon: <Camera size={14} />,
       description: "Mendokumentasikan energi, emosi, dan atmosfer panggung pertunjukan musik indie 'Suara yang Terbungkam Vol.5' yang diselenggarakan oleh UKM Musik STMIK DCI.",
-      techStack: ["Photography", "Event Media", "Low-light Photography"],
+      techStack: ["Musical Event","Photography", "Event Media", "Low-light Photography"],
       images: [
         "/images/syt/1.webp", "/images/syt/2.webp", "/images/syt/3.webp",
         "/images/syt/4.webp", "/images/syt/5.webp", "/images/syt/6.webp"
       ]
     },
     {
-      title: "Mubes Himmaji STMIK DCI 2025",
+      title: "Media Partner Mubes Himmaji STMIK DCI 2025",
       client: "Himmaji (Himpunan Mahasiswa Jurusan Manajemen Informatika)",
-      type: "Organizational Event Documentation • Photography",
+      type: "Organizational Event Documentation",
       tagIcon: <Users size={14} />,
-      description: "Menjadi tim media partner untuk mendokumentasikan Musyawarah Besar (Mubes) Himmaji STMIK DCI 2025. Menangkap momen penting diskusi, musyawarah, dan formalitas acara organisasi kemahasiswaan.",
+      description: "Menjadi tim media partner untuk mendokumentasikan Musyawarah Besar (Mubes) Himpunan Mahasiswa Manajemen Informatika (Himmaji) STMIK DCI 2025. Menangkap momen penting diskusi, musyawarah, dan formalitas acara organisasi kemahasiswaan.",
       techStack: ["Event Photography", "Documentation", "Formal Event"],
       images: [
         "/images/himmaji/1.webp", "/images/himmaji/2.webp", "/images/himmaji/3.webp",
@@ -36,11 +36,11 @@ export default function ProjectSection() {
       ]
     },
     {
-      title: "Media Partner Pelantikan Pengurus UKM LDK 2025/2026",
+      title: "Media Partner Pelantikan Pengurus UKM LDK STMIK DCI 2025/2026",
       client: "UKM LDK STMIK DCI",
-      type: "Event Documentation • Photography",
+      type: "Event Documentation",
       tagIcon: <GraduationCap size={14} />,
-      description: "Bertanggung jawab sebagai media partner dalam mendokumentasikan prosesi Pelantikan dan Pelatihan Pengurus Lembaga Dakwah Kampus (LDK) STMIK DCI periode 2025/2026. Menangkap momen formalitas kegiatan, penyampaian materi, hingga antusiasme dan interaksi para peserta.",
+      description: "Bertanggung jawab sebagai media partner dalam mendokumentasikan prosesi Pelantikan dan Pelatihan Pengurus UKM Lembaga Dakwah Kampus (LDK) STMIK DCI periode 2025/2026. Menangkap momen formalitas kegiatan, penyampaian materi, hingga antusiasme dan interaksi para peserta.",
       techStack: ["Event Photography", "Media Partner", "Campus Event"],
       images: [
         "/images/ldk/1.webp", "/images/ldk/2.webp", "/images/ldk/3.webp",
@@ -48,12 +48,12 @@ export default function ProjectSection() {
       ]
     },
     {
-      title: "Tim PDD Dikafom 2025 UKM Format",
-      client: "UKM Fotografi & Multimedia STMIK DCI",
+      title: "Tim PDD Dikafom 2025 UKM Format STMIK DCI",
+      client: "UKM Fotografi & Multimedia (Format) STMIK DCI",
       type: "Event Organizer • Multimedia",
       tagIcon: <Film size={14} />,
-      description: "Mengambil peran strategis dalam divisi PDD (Publikasi, Dekorasi, dan Dokumentasi) untuk menyukseskan acara puncak DIKAFOM pada bulan Desember 2025. Bertanggung jawab dalam mengelola alur multimedia, pengeditan visual secara langsung, serta mendokumentasikan keseluruhan dinamika peserta.",
-      techStack: ["Multimedia", "Video Editing", "Event Organizing"],
+      description: "Mengambil peran strategis dalam divisi PDD (Publikasi, Dekorasi, dan Dokumentasi) untuk menyukseskan acara puncak DIKAFOM 2025. Bertanggung jawab dalam mengelola alur multimedia, pengeditan visual secara langsung, serta mendokumentasikan keseluruhan dinamika peserta.",
+      techStack: ["Photography", "Multimedia", "Video Editing", "Event Organizing"],
       images: [
         "/images/dikafom/1.webp", "/images/dikafom/2.webp", "/images/dikafom/3.webp",
         "/images/dikafom/4.webp", "/images/dikafom/5.webp", "/images/dikafom/6.webp"
