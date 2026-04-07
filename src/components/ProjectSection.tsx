@@ -58,7 +58,7 @@ export default function ProjectSection() {
       ]
     },
     {
-      title: "Media Partner Mubes Himmaji STMIK DCI 2025",
+      title: "Media Partner Mubes 2025 Himmaji STMIK DCI",
       client: "Himmaji (Himpunan Mahasiswa Jurusan Manajemen Informatika)",
       type: "Organizational Event Documentation",
       tagIcon: <Users size={14} />,
@@ -82,7 +82,7 @@ export default function ProjectSection() {
       ]
     },
     {
-      title: "Tim PDD Dikafom 2025 UKM Format STMIK DCI",
+      title: "Tim PDD DIKAFOM 2025 UKM Format STMIK DCI",
       client: "UKM Fotografi & Multimedia (Format) STMIK DCI",
       type: "Event Organizer • Multimedia",
       tagIcon: <Film size={14} />,
