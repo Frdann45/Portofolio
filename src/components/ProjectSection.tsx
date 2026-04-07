@@ -1,10 +1,44 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Camera, Users, GraduationCap, Film, Image as ImageIcon } from "lucide-react";
+// Menambahkan ikon ChevronLeft (Kiri) dan ChevronRight (Kanan)
+import { Camera, Users, GraduationCap, Film, Image as ImageIcon, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function ProjectSection() {
+  // State baru: Menyimpan array gambar dan index gambar yang sedang dilihat
+  const [lightbox, setLightbox] = useState<{ images: string[]; index: number } | null>(null);
+
+  // Mencegah scroll background saat Lightbox terbuka
+  useEffect(() => {
+    if (lightbox) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [lightbox]);
+
+  // Fungsi untuk ke gambar sebelumnya
+  const showPrev = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Mencegah klik menembus ke background (yang menutup lightbox)
+    if (lightbox) {
+      const isFirst = lightbox.index === 0;
+      const newIndex = isFirst ? lightbox.images.length - 1 : lightbox.index - 1;
+      setLightbox({ ...lightbox, index: newIndex });
+    }
+  };
+
+  // Fungsi untuk ke gambar berikutnya
+  const showNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (lightbox) {
+      const isLast = lightbox.index === lightbox.images.length - 1;
+      const newIndex = isLast ? 0 : lightbox.index + 1;
+      setLightbox({ ...lightbox, index: newIndex });
+    }
+  };
+
   const fadeUp: any = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
@@ -74,71 +108,131 @@ export default function ProjectSection() {
   ];
 
   return (
-    <section id="projects" className="py-32 px-6 max-w-6xl mx-auto border-t border-zinc-500/10">
-      <motion.div 
-        initial="hidden" 
-        whileInView="visible" 
-        viewport={{ once: true }} 
-        variants={fadeUp} 
-        className="mb-16"
-      >
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4 text-zinc-900 dark:text-zinc-50">
-          Proyek & Karya.
-        </h2>
-        <p className="opacity-70 max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
-          Eksplorasi visual dan dokumentasi event yang telah dikerjakan selama masa perkuliahan.
-        </p>
-      </motion.div>
+    <>
+      <section id="projects" className="py-32 px-6 max-w-6xl mx-auto border-t border-zinc-500/10 relative">
+        <motion.div 
+          initial="hidden" 
+          whileInView="visible" 
+          viewport={{ once: true }} 
+          variants={fadeUp} 
+          className="mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4 text-zinc-900 dark:text-zinc-50">
+            Proyek & Karya.
+          </h2>
+          <p className="opacity-70 max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
+            Eksplorasi visual dan dokumentasi event yang telah dikerjakan selama masa perkuliahan. Klik gambar untuk melihat resolusi penuh.
+          </p>
+        </motion.div>
 
-      <div className="grid grid-cols-1 gap-12">
-        {projects.map((project, idx) => (
+        <div className="grid grid-cols-1 gap-12">
+          {projects.map((project, idx) => (
+            <motion.div 
+              key={idx}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+              className="group flex flex-col gap-8 p-8 md:p-10 rounded-3xl border border-zinc-500/20 bg-zinc-500/5 hover:bg-zinc-500/10 transition-all duration-500"
+            >
+              {/* Bagian Teks & Info Proyek */}
+              <div className="flex flex-col md:flex-row justify-between gap-6 border-b border-zinc-500/10 pb-8">
+                <div className="md:w-2/3">
+                  <h3 className="text-3xl font-bold mb-3 text-zinc-900 dark:text-zinc-50">{project.title}</h3>
+                  <p className="text-sm font-medium opacity-60 mb-4 uppercase flex items-center gap-2 text-zinc-600 dark:text-zinc-400">
+                    {project.tagIcon} {project.type}
+                  </p>
+                  <p className="opacity-70 leading-relaxed text-zinc-700 dark:text-zinc-300 max-w-3xl">
+                    {project.description}
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2 md:justify-end content-start md:w-1/3">
+                  {project.techStack.map((tech, i) => (
+                    <span key={i} className="px-3 py-1 text-xs rounded-full border border-zinc-500/20 text-zinc-600 dark:text-zinc-400 whitespace-nowrap">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bagian Visual: GRID FOTO */}
+              {project.images && (
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mt-2">
+                  {project.images.map((img, i) => (
+                    <div 
+                      key={i} 
+                      // Mengirim array gambar proyek dan index yang diklik ke Lightbox
+                      onClick={() => setLightbox({ images: project.images, index: i })}
+                      className="relative overflow-hidden rounded-xl md:rounded-2xl border border-zinc-500/20 aspect-video md:aspect-square cursor-zoom-in"
+                    >
+                      <Image 
+                        src={img} 
+                        alt={`Dokumentasi ${project.title} ${i+1}`} 
+                        fill
+                        sizes="(max-width: 768px) 50vw, 33vw"
+                        className="object-cover grayscale-[30%] hover:grayscale-0 hover:scale-110 transition-all duration-700 ease-in-out"
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* OVERLAY LIGHTBOX FULLSCREEN DENGAN NAVIGASI */}
+      <AnimatePresence>
+        {lightbox && (
           <motion.div 
-            key={idx}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            className="group flex flex-col gap-8 p-8 md:p-10 rounded-3xl border border-zinc-500/20 bg-zinc-500/5 hover:bg-zinc-500/10 transition-all duration-500"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-zinc-950/95 backdrop-blur-sm p-4 md:p-12 cursor-zoom-out"
+            onClick={() => setLightbox(null)}
           >
-            {/* Bagian Teks & Info Proyek */}
-            <div className="flex flex-col md:flex-row justify-between gap-6 border-b border-zinc-500/10 pb-8">
-              <div className="md:w-2/3">
-                <h3 className="text-3xl font-bold mb-3 text-zinc-900 dark:text-zinc-50">{project.title}</h3>
-                <p className="text-sm font-medium opacity-60 mb-4 uppercase flex items-center gap-2 text-zinc-600 dark:text-zinc-400">
-                  {project.tagIcon} {project.type}
-                </p>
-                <p className="opacity-70 leading-relaxed text-zinc-700 dark:text-zinc-300 max-w-3xl">
-                  {project.description}
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-2 md:justify-end content-start md:w-1/3">
-                {project.techStack.map((tech, i) => (
-                  <span key={i} className="px-3 py-1 text-xs rounded-full border border-zinc-500/20 text-zinc-600 dark:text-zinc-400 whitespace-nowrap">
-                    {tech}
-                  </span>
-                ))}
-              </div>
+            {/* Tombol Close */}
+            <button 
+              className="absolute top-6 right-6 z-[110] p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors"
+              onClick={() => setLightbox(null)}
+            >
+              <X size={24} />
+            </button>
+
+            {/* Tombol Kiri (Previous) */}
+            <button 
+              className="absolute left-4 md:left-8 z-[110] p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors"
+              onClick={showPrev}
+            >
+              <ChevronLeft size={32} />
+            </button>
+            
+            {/* Wadah Gambar Full */}
+            <div 
+              className="relative w-full h-full max-w-7xl flex items-center justify-center cursor-default"
+              onClick={(e) => e.stopPropagation()} // Mencegah klik di area gambar menutup lightbox
+            >
+              <Image 
+                src={lightbox.images[lightbox.index]} 
+                alt="Preview Karya Fullscreen" 
+                fill
+                className="object-contain"
+                sizes="100vw"
+                quality={100}
+                priority // Memastikan gambar resolusi tinggi langsung di-load
+              />
             </div>
 
-            {/* Bagian Visual: GRID FOTO */}
-            {project.images && (
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mt-2">
-                {project.images.map((img, i) => (
-                  <div key={i} className="relative overflow-hidden rounded-xl md:rounded-2xl border border-zinc-500/20 aspect-video md:aspect-square">
-                    <Image 
-                      src={img} 
-                      alt={`Dokumentasi ${project.title} ${i+1}`} 
-                      fill
-                      sizes="(max-width: 768px) 50vw, 33vw"
-                      className="object-cover grayscale-[30%] hover:grayscale-0 hover:scale-110 transition-all duration-700 ease-in-out cursor-pointer"
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
+            {/* Tombol Kanan (Next) */}
+            <button 
+              className="absolute right-4 md:right-8 z-[110] p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors"
+              onClick={showNext}
+            >
+              <ChevronRight size={32} />
+            </button>
           </motion.div>
-        ))}
-      </div>
-    </section>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
