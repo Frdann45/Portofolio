@@ -44,6 +44,14 @@ export default function ProjectSection() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
   };
 
+  const accentStyles = [
+    { accent: "from-[#427AB5] to-[#406AAF]", accentLight: "bg-[#427AB5]/10 border-[#427AB5]/20", accentTag: "text-[#427AB5] dark:text-[#FFE8BE]" },
+    { accent: "from-[#406AAF] to-[#427AB5]", accentLight: "bg-[#406AAF]/10 border-[#406AAF]/20", accentTag: "text-[#406AAF] dark:text-[#FFE8BE]" },
+    { accent: "from-[#F7DD7D] to-[#FFE8BE]", accentLight: "bg-[#F7DD7D]/10 border-[#F7DD7D]/20", accentTag: "text-[#F7DD7D]" },
+    { accent: "from-[#427AB5] to-[#F7DD7D]", accentLight: "bg-[#427AB5]/10 border-[#427AB5]/20", accentTag: "text-[#427AB5] dark:text-[#FFE8BE]" },
+    { accent: "from-[#FFE8BE] to-[#F7DD7D]", accentLight: "bg-[#FFE8BE]/10 border-[#FFE8BE]/20", accentTag: "text-[#F7DD7D]" },
+  ];
+
   const projects = [
     {
       title: "Media Partner Suara yang Terbungkam Vol.5",
@@ -109,7 +117,7 @@ export default function ProjectSection() {
 
   return (
     <>
-      <section id="projects" className="py-32 px-6 max-w-6xl mx-auto border-t border-zinc-500/10 relative">
+      <section id="projects" className="py-32 px-6 max-w-7xl mx-auto relative">
         <motion.div 
           initial="hidden" 
           whileInView="visible" 
@@ -117,38 +125,52 @@ export default function ProjectSection() {
           variants={fadeUp} 
           className="mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4 text-zinc-900 dark:text-zinc-50">
-            Proyek & Karya.
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#427AB5]/10 border border-[#427AB5]/25 text-[#427AB5] dark:text-[#FFE8BE] text-sm font-medium mb-6">
+            <span className="w-2 h-2 rounded-full bg-[#F7DD7D] animate-pulse" />
+            Portofolio
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+            Proyek{" "}
+            <span className="bg-gradient-to-r from-[#427AB5] to-[#F7DD7D] bg-clip-text text-transparent">
+              & Karya.
+            </span>
           </h2>
-          <p className="opacity-70 max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
+          <p className="opacity-70 max-w-2xl text-lg">
             Eksplorasi visual dan dokumentasi event yang telah dikerjakan selama masa perkuliahan. Klik gambar untuk melihat resolusi penuh.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-12">
-          {projects.map((project, idx) => (
+        <div className="grid grid-cols-1 gap-8">
+          {projects.map((project, idx) => {
+            const { accent, accentLight, accentTag } = accentStyles[idx];
+            return (
             <motion.div 
               key={idx}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeUp}
-              className="group flex flex-col gap-8 p-8 md:p-10 rounded-3xl border border-zinc-500/20 bg-zinc-500/5 hover:bg-zinc-500/10 transition-all duration-500"
+              className="group flex flex-col gap-8 p-8 md:p-10 rounded-3xl border border-zinc-500/15 bg-zinc-500/5 hover:bg-zinc-500/10 transition-all duration-500 relative overflow-hidden"
             >
+              {/* Colored top border accent */}
+              <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${accent} opacity-70`} />
+
               {/* Bagian Teks & Info Proyek */}
               <div className="flex flex-col md:flex-row justify-between gap-6 border-b border-zinc-500/10 pb-8">
                 <div className="md:w-2/3">
-                  <h3 className="text-3xl font-bold mb-3 text-zinc-900 dark:text-zinc-50">{project.title}</h3>
-                  <p className="text-sm font-medium opacity-60 mb-4 uppercase flex items-center gap-2 text-zinc-600 dark:text-zinc-400">
+                  {/* Type tag */}
+                  <p className={`inline-flex items-center gap-2 text-xs font-semibold mb-4 px-3 py-1.5 rounded-full border ${accentLight} ${accentTag} uppercase tracking-wider`}>
                     {project.tagIcon} {project.type}
                   </p>
-                  <p className="opacity-70 leading-relaxed text-zinc-700 dark:text-zinc-300 max-w-3xl">
+                  <h3 className="text-2xl md:text-3xl font-bold mb-3">{project.title}</h3>
+                  <p className="text-sm opacity-50 mb-3 font-medium">{project.client}</p>
+                  <p className="opacity-70 leading-relaxed max-w-3xl">
                     {project.description}
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-2 md:justify-end content-start md:w-1/3">
                   {project.techStack.map((tech, i) => (
-                    <span key={i} className="px-3 py-1 text-xs rounded-full border border-zinc-500/20 text-zinc-600 dark:text-zinc-400 whitespace-nowrap">
+                    <span key={i} className={`px-3 py-1 text-xs rounded-full border ${accentLight} ${accentTag} whitespace-nowrap font-medium`}>
                       {tech}
                     </span>
                   ))}
@@ -161,23 +183,23 @@ export default function ProjectSection() {
                   {project.images.map((img, i) => (
                     <div 
                       key={i} 
-                      // Mengirim array gambar proyek dan index yang diklik ke Lightbox
                       onClick={() => setLightbox({ images: project.images, index: i })}
-                      className="relative overflow-hidden rounded-xl md:rounded-2xl border border-zinc-500/20 aspect-video md:aspect-square cursor-zoom-in"
+                      className={`relative overflow-hidden rounded-xl md:rounded-2xl border ${accentLight} aspect-video md:aspect-square cursor-zoom-in group/img`}
                     >
                       <Image 
                         src={img} 
                         alt={`Dokumentasi ${project.title} ${i+1}`} 
                         fill
                         sizes="(max-width: 768px) 50vw, 33vw"
-                        className="object-cover grayscale-[30%] hover:grayscale-0 hover:scale-110 transition-all duration-700 ease-in-out"
+                        className="object-cover grayscale-[20%] group-hover/img:grayscale-0 group-hover/img:scale-110 transition-all duration-700 ease-in-out"
                       />
                     </div>
                   ))}
                 </div>
               )}
             </motion.div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
