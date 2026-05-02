@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import Image from "next/image";
 // Menambahkan ikon ChevronLeft (Kiri) dan ChevronRight (Kanan)
 import { Camera, Users, GraduationCap, Film, Image as ImageIcon, X, ChevronLeft, ChevronRight } from "lucide-react";
@@ -39,7 +39,7 @@ export default function ProjectSection() {
     }
   };
 
-  const fadeUp: any = {
+  const fadeUp: Variants = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
   };
