@@ -1,30 +1,160 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --green-dark: #237227;
-  --green-mid: #519A66;
-  --gold: #FFAA00;
-  --gold-light: #FFD786;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-mono: var(--font-space-mono), monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0f0a;
-    --foreground: #ededed;
-  }
+:root {
+  --neo-bg: #FFE600;
+  --neo-card-bg: #FFFFFF;
+  --neo-text: #000000;
+  --neo-border: #000000;
+  --neo-cyan: #00F0FF;
+  --neo-pink: #FF007A;
+  --neo-lime: #CCFF00;
+  --neo-orange: #FF5722;
+  --neo-purple: #9D00FF;
+}
+
+.dark {
+  --neo-bg: #121214;
+  --neo-card-bg: #1E1E24;
+  --neo-text: #FFFFFF;
+  --neo-border: #000000;
+  --neo-cyan: #00F0FF;
+  --neo-pink: #FF007A;
+  --neo-lime: #CCFF00;
+  --neo-orange: #FF5722;
+  --neo-purple: #B55FE6;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-space-grotesk), system-ui, -apple-system, sans-serif;
+  background-color: var(--neo-bg);
+  color: var(--neo-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom Neo-Brutalist Utilities */
+.neo-border {
+  border: 3px solid #000000;
+}
+
+.neo-border-lg {
+  border: 4px solid #000000;
+}
+
+.neo-shadow-sm {
+  box-shadow: 3px 3px 0px #000000;
+}
+
+.neo-shadow {
+  box-shadow: 6px 6px 0px #000000;
+}
+
+.neo-shadow-lg {
+  box-shadow: 8px 8px 0px #000000;
+}
+
+.neo-shadow-xl {
+  box-shadow: 12px 12px 0px #000000;
+}
+
+/* Dark mode shadow variations if needed */
+.dark .neo-shadow-dark {
+  box-shadow: 6px 6px 0px #00F0FF;
+}
+
+.dark .neo-shadow-dark-pink {
+  box-shadow: 6px 6px 0px #FF007A;
+}
+
+/* Interactive Neo Buttons */
+.neo-btn {
+  border: 3px solid #000000;
+  box-shadow: 5px 5px 0px #000000;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.neo-btn:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 8px 8px 0px #000000;
+}
+
+.neo-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #000000;
+}
+
+.neo-btn-lg {
+  border: 4px solid #000000;
+  box-shadow: 7px 7px 0px #000000;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.neo-btn-lg:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 10px 10px 0px #000000;
+}
+
+.neo-btn-lg:active {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0px #000000;
+}
+
+/* Retro Window Header */
+.window-header {
+  background-color: #000000;
+  color: #FFFFFF;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-space-mono), monospace;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 3px solid #000000;
+}
+
+/* Marquee Animation */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 20s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Custom Scrollbar for Neo Brutalism */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: #FFE600;
+  border-left: 3px solid #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #FF007A;
+  border: 3px solid #000000;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00F0FF;
 }
